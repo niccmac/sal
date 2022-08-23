@@ -3,9 +3,12 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
+import { initializeApp } from "firebase/app";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import ChatMessage from "./components/chat";
+
+firebase.initializeApp();
 
 function App() {
   return (
