@@ -6,7 +6,9 @@ import "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import ChatMessage from "./components/chat";
+// import ChatMessage from "./components/chat";
+import ChatBox from "./components/chatBox";
+import SignIn from "./components/signin";
 
 const app = initializeApp(process.env.firebaseConfig);
 const auth = firebase.auth();
@@ -17,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header"></header>
-      <section>{user ? <ChatRoom /> : <SignIn />}</section>
+      <section>{user ? <ChatBox /> : <SignIn />}</section>
     </div>
   );
 }
