@@ -8,7 +8,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import ChatMessage from "./components/chat";
 
-firebase.initializeApp();
+const app = initializeApp(firebaseConfig);
 
 function App() {
   return (
