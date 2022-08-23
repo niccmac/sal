@@ -5,10 +5,7 @@ import ChatMessage from "./components/chat";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        Sally
-        <ChatMessage />
-      </header>
+      <header className="App-header"></header>
     </div>
   );
 }
