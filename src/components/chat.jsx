@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import ChatMessage from "./chatMessage";
-// import SendMessage from "./SendMessage";
+import { Drawer, Button, Group } from "@mantine/core";
 import { db, app } from "../firebase";
 // import firebase from "firebase";
 import {
@@ -8,16 +7,23 @@ import {
   collection,
   orderBy,
   onSnapshot,
-  getDocs
+  getDocs,
+  limit
 } from "firebase/firestore";
+import ChatMessage from "./chatMessage";
 import SendMessage from "./sendMessage";
 
 const Chat = () => {
+  const [opened, setOpened] = useState(false);
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
 
   useEffect(() => {
-    const q = query(collection(db, "Messages"), orderBy("time"));
+    const q = query(
+      collection(db, "Messages"),
+      orderBy("time", "desc"),
+      limit(2)
+    );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let messages = [];
       querySnapshot.forEach((doc) => {
@@ -30,16 +36,28 @@ const Chat = () => {
 
   return (
     <>
-      <main>
-        {messages &&
-          messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
-          ))}
-      </main>
-      {/* <button onClick={() => onSnapshot()}>Messages?</button> */}
-      {/* Send Message Compoenent */}
-      <SendMessage />
-      <span ref={scroll}></span>
+      <Drawer
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Register"
+        padding="xl"
+        size="xl"
+      >
+        <>
+          <main>
+            {messages &&
+              messages.map((message) => (
+                <ChatMessage key={message.id} message={message} />
+              ))}
+          </main>
+          <SendMessage />
+          <span ref={scroll}></span>
+        </>
+      </Drawer>
+
+      <Group position="center">
+        <Button onClick={() => setOpened(true)}>Open Chat</Button>
+      </Group>
     </>
   );
 };
