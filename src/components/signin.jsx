@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { UserAuth } from "../providers/GoogleAuthProvider";
 import { useNavigate } from "react-router-dom";
+import GoogleButton from "react-google-button";
 
 const Signin = () => {
   const { googleSignIn, user } = UserAuth();
@@ -23,7 +24,7 @@ const Signin = () => {
   return (
     <div>
       <div>
-        <button onClick={handleGoogleSignIn}>Sign in</button>
+        <GoogleButton onClick={handleGoogleSignIn} />
       </div>
     </div>
   );
