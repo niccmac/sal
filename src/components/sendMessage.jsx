@@ -1,12 +1,23 @@
 import { TextInput, ActionIcon, useMantineTheme } from "@mantine/core";
 import { IconArrowRight, IconMessageCircle2 } from "@tabler/icons";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useState } from "react";
+import { auth, db } from "../firebase";
 
 export function SendMessage() {
   const [input, setInput] = useState("");
   // const theme = useMantineTheme();
-  const handleSendMessage = () => {
-    console.log("clicked");
+  const handleSendMessage = async (e) => {
+    // e.preventDefault();
+    const { displayName, uid } = auth.currentUser;
+    await addDoc(collection(db, "Messages"), {
+      name: displayName,
+      text: input,
+      time: serverTimestamp(),
+      uid
+    });
+    console.log(input);
+    setInput("");
   };
   return (
     <TextInput
