@@ -39,10 +39,12 @@ const Chat = () => {
       <Drawer
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Register"
+        title="Chat"
         padding="xl"
         size="xl"
         position="right"
+        overlayOpacity={0.55}
+        overlayBlur={3}
       >
         <>
           <main>
