@@ -11,6 +11,7 @@ export function SendMessage() {
   return (
     <TextInput
       value={input}
+      onChange={(e) => setInput(e.target.value)}
       icon={<IconMessageCircle2 size={18} stroke={1.5} />}
       radius="xl"
       size="md"
