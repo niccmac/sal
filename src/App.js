@@ -8,6 +8,7 @@ import "firebase/analytics";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import SignIn from "./components/signin";
 
 const auth = initializeAuth(app);
 // const firestore = firestore();
@@ -22,7 +23,7 @@ function App() {
         {/* <div>other</div> */}
         {/* <section>{user ? <ChatBox /> : "sign ins"}</section> */}
         {/* <SignIn /> */}
-        Sally
+        <SignIn auth={auth} />
       </header>
     </div>
   );
