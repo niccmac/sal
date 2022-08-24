@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import { UserAuth } from "../providers/GoogleAuthProvider";
 import { useNavigate } from "react-router-dom";
 

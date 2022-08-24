@@ -2,7 +2,7 @@ import "./App.css";
 import ChatBox from "./components/chatBox";
 import { GoogleAuthContext } from "./providers/GoogleAuthProvider";
 import { auth } from "./components/firebase";
-
+import { Route, Routes } from "react-router-dom";
 import { firestore } from "firebase/firestore";
 import { initializeAuth } from "firebase/auth";
 import "firebase/analytics";
@@ -20,6 +20,7 @@ function App() {
 
   return (
     <GoogleAuthContext>
+      <Routes></Routes>
       <div className="App">
         <header className="App-header">
           {/* <div>other</div> */}
