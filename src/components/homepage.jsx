@@ -3,6 +3,7 @@ import { UserAuth } from "../providers/GoogleAuthProvider";
 import Chat from "./chat";
 import Eating from "./eating";
 import Signin from "./signin";
+import Toilet from "./toilet";
 
 const HomePage = () => {
   const { logOut, user } = UserAuth();
@@ -34,6 +35,7 @@ const HomePage = () => {
       )}
 
       <Eating />
+      <Toilet />
     </div>
   );
 };
