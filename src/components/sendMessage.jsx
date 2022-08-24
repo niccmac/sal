@@ -1,17 +1,17 @@
-import {
-  TextInput,
-  TextInputProps,
-  ActionIcon,
-  useMantineTheme
-} from "@mantine/core";
-import { IconSearch, IconArrowRight, IconArrowLeft } from "@tabler/icons";
+import { TextInput, ActionIcon, useMantineTheme } from "@mantine/core";
+import { IconArrowRight, IconMessageCircle2 } from "@tabler/icons";
+import { useState } from "react";
 
 export function SendMessage() {
+  const [input, setInput] = useState("");
   // const theme = useMantineTheme();
-
+  const handleSendMessage = () => {
+    console.log("clicked");
+  };
   return (
     <TextInput
-      icon={<IconSearch size={18} stroke={1.5} />}
+      value={input}
+      icon={<IconMessageCircle2 size={18} stroke={1.5} />}
       radius="xl"
       size="md"
       rightSection={
@@ -19,18 +19,18 @@ export function SendMessage() {
           size={32}
           radius="xl"
           // color={theme.primaryColor}
+
           variant="filled"
         >
-          {/* {theme.dir === "ltr" ? (
-            <IconArrowRight size={18} stroke={1.5} />
-          ) : (
-            <IconArrowLeft size={18} stroke={1.5} />
-          )} */}
+          <IconArrowRight
+            size={18}
+            stroke={1.5}
+            onClick={() => handleSendMessage()}
+          />
         </ActionIcon>
       }
-      placeholder="Search questions"
+      placeholder="Send a message"
       rightSectionWidth={42}
-      // {...props}
     />
   );
 }
