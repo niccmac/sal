@@ -6,13 +6,16 @@ import { Route, Routes } from "react-router-dom";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import SignIn from "./components/signin";
+import HomePage from "./components/homepage";
 
 function App() {
   const [user] = useAuthState(auth);
 
   return (
     <GoogleAuthContext>
-      <Routes></Routes>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
       <div className="App">
         <header className="App-header">
           <section>{user ? <ChatBox /> : "sign ins"}</section>
