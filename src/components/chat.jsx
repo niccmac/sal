@@ -42,6 +42,7 @@ const Chat = () => {
         title="Register"
         padding="xl"
         size="xl"
+        position="right"
       >
         <>
           <main>
