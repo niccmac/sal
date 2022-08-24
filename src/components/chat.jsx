@@ -10,6 +10,7 @@ import {
   onSnapshot,
   getDocs
 } from "firebase/firestore";
+import SendMessage from "./sendMessage";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -37,7 +38,7 @@ const Chat = () => {
       </main>
       {/* <button onClick={() => onSnapshot()}>Messages?</button> */}
       {/* Send Message Compoenent */}
-
+      <SendMessage />
       <span ref={scroll}></span>
     </>
   );
