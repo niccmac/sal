@@ -1,6 +1,7 @@
 import React from "react";
 import { UserAuth } from "../providers/GoogleAuthProvider";
 import Chat from "./chat";
+import Eating from "./eating";
 import Signin from "./signin";
 
 const HomePage = () => {
@@ -31,6 +32,8 @@ const HomePage = () => {
       ) : (
         <Signin />
       )}
+
+      <Eating />
     </div>
   );
 };
