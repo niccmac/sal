@@ -1,15 +1,12 @@
 import React from "react";
 
 const ChatMessage = (props) => {
-  const { id, name, text, time } = props;
-  console.log(name);
+  const { text, name, id } = props.message;
+
   return (
-    <div className="chat-single">
-      message
+    <div className="chat-single" key={id}>
       <p className="chat-name">{name}</p>
-      <p className="chat-message">
-        {text} : {time}
-      </p>
+      <p className="chat-message">{text}</p>
     </div>
   );
 };
