@@ -1,39 +1,40 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import { app } from "./firebase";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import React, { useEffect } from "react";
+import { GoogleButton } from "react-google-button";
+import { UserAuth } from "../providers/GoogleAuthProvider";
+import { useNavigate } from "react-router-dom";
 
-export default function SignIn() {
-  const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth(app);
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // ...
-        console.log("in then");
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-        console.log("in catch", errorMessage, errorCode);
-      });
-    // firebase.auth.signInWithPopup(provider);
+const Signin = () => {
+  const { googleSignIn, user } = UserAuth();
+  const navigate = useNavigate();
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    if (user != null) {
+      navigate("/account");
+    }
+  }, [user]);
+
   return (
-    <>
-      <button onClick={signInWithGoogle}>Sign In</button>
-    </>
+    <div>
+      <h1 className="text-center text-3xl font-bold py-8">Sign in</h1>
+      <div className="max-w-[240px] m-auto py-4">
+        <GoogleButton onClick={handleGoogleSignIn} />
+      </div>
+    </div>
   );
-}
+};
+
+export default Signin;
+
+// return (
+//   <>
+//     <button onClick={signInWithGoogle}>Sign In</button>
+//   </>
+// );
