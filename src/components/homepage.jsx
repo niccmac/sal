@@ -1,5 +1,6 @@
 import React from "react";
 import { UserAuth } from "../providers/GoogleAuthProvider";
+import Chat from "./chat";
 import Signin from "./signin";
 
 const HomePage = () => {
@@ -21,9 +22,12 @@ const HomePage = () => {
         <p>Welcome, {user ? user.displayName : "please sign in."}</p>
       </div>
       {user ? (
-        <button onClick={handleSignOut} className="border py-2 px-5 mt-10">
-          Logout
-        </button>
+        <>
+          <button onClick={handleSignOut} className="border py-2 px-5 mt-10">
+            Logout
+          </button>
+          <Chat />
+        </>
       ) : (
         <Signin />
       )}

@@ -1,26 +1,39 @@
-import "react-chat-elements/dist/main.css";
+import React, { useState, useEffect, useRef } from "react";
+import ChatMessage from "./chatMessage";
+// import SendMessage from "./SendMessage";
+import { db } from "../firebase";
+import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 
-import { MessageBox } from "react-chat-elements";
+const Chat = () => {
+  const [messages, setMessages] = useState([]);
+  const scroll = useRef();
 
-export default function ChatMessage() {
+  useEffect(() => {
+    const q = query(collection(db, "messages"), orderBy("timestamp"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let messages = [];
+      q.forEach((doc) => {
+        console.log("...");
+        messages.push({ ...doc.data(), id: doc.id });
+      });
+      setMessages(messages);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <>
-      <MessageBox
-        position="left"
-        title="Burhan"
-        type="text"
-        text="Hi there !"
-        date={new Date()}
-        replyButton={true}
-      />
-
-      <MessageBox
-        position="right"
-        title="Emre"
-        type="meetingLink"
-        text="Click to join the meeting"
-        date={new Date()}
-      />
+      <main>
+        {messages &&
+          messages.map((message) => (
+            <ChatMessage key={message.id} message={message} />
+          ))}
+      </main>
+      {/* Send Message Compoenent */}
+      {/* <SendMessage scroll={scroll} /> */}
+      <span ref={scroll}></span>
     </>
   );
-}
+};
+
+export default Chat;
