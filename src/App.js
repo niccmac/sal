@@ -13,13 +13,11 @@ function App() {
 
   return (
     <GoogleAuthContext>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-      </Routes>
       <div className="App">
         <header className="App-header">
-          <section>{user ? <ChatBox /> : "sign ins"}</section>
-          <SignIn />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+          </Routes>
         </header>
       </div>
     </GoogleAuthContext>
