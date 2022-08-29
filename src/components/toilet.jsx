@@ -1,86 +1,112 @@
 import { IconDroplet, IconPoo } from "@tabler/icons";
-import { TimeInput } from "@mantine/dates";
-import { IconClock } from "@tabler/icons";
-import React, { useState, useEffect, useRef } from "react";
-import { Drawer, Button, Group } from "@mantine/core";
-import { db, app } from "../firebase";
+import React, { useState, useEffect } from "react";
+import { Button } from "@mantine/core";
+import { db } from "../firebase";
 
-import {
-  query,
-  orderBy,
-  onSnapshot,
-  getDocs,
-  limit,
-  addDoc,
-  collection,
-  serverTimestamp
-} from "firebase/firestore";
+import { query, onSnapshot, addDoc, collection } from "firebase/firestore";
+import TimeDisplay from "./timeDisplay";
+
 const Toilet = () => {
-  const [pee, setPee] = useState();
+  const [pee, setPee] = useState([]);
   const [poo, setPoo] = useState();
-  const brown = "#A52A2A";
 
   const handlePee = async () => {
     await addDoc(collection(db, "Pee"), {
       time: new Date()
     });
+  };
+  const clearPee = () => {
+    // db.collection("Pee")
+    //   .get()
+    //   .then((querySnapshot) => {
+    //     querySnapshot.docs.forEach((snapshot) => {
+    //       snapshot.ref.delete();
+    //     });
+    //   });
 
+    console.log("Clear");
+  };
+  const handlePoo = async () => {
+    await addDoc(collection(db, "Poo"), {
+      time: new Date()
+    });
+  };
+
+  const clearPoo = () => {
+    console.log("Clear");
+  };
+  useEffect(() => {
     const q = query(collection(db, "Pee"));
+    let times = [];
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let times = [];
       querySnapshot.forEach((time) => {
-        times.push({ ...time.data() });
+        const add =
+          time._document.data.value.mapValue.fields.time.timestampValue;
+        times.push(add);
       });
       setPee(times);
+    });
+    return () => unsubscribe();
+  }, [pee]);
 
-      console.log("changed", times);
-    });
-    return () => unsubscribe();
-  };
-  const handlePoo = () => {
-    console.log("in handler");
+  useEffect(() => {
     const q = query(collection(db, "Poo"));
+    let times = [];
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      console.log(querySnapshot);
-      setPee("changed");
-      console.log("changed");
+      querySnapshot.forEach((time) => {
+        const add =
+          time._document.data.value.mapValue.fields.time.timestampValue;
+        times.push(add);
+      });
+      setPoo(times);
     });
     return () => unsubscribe();
-  };
+  }, [poo]);
 
   return (
     <>
-      <TimeInput
-        label="Pick time"
-        placeholder="Pick time"
-        icon={<IconClock size={16} />}
-        defaultValue={new Date()}
-      />
+      <main>
+        {pee && pee.map((item) => <TimeDisplay key={item} time={item} />)}
+      </main>
       <Button
         color="yellow"
         radius="lg"
         size="md"
         compact
-        leftIcon={<IconDroplet size={14} />}
         onClick={() => handlePee()}
       >
-        Pee
+        {<IconDroplet size={14} />}
       </Button>
-      <TimeInput
-        label="Pick time"
-        placeholder="Pick time"
-        icon={<IconClock size={16} />}
-        defaultValue={new Date()}
-      />
+
+      <Button
+        color="yellow"
+        radius="lg"
+        size="md"
+        compact
+        onClick={() => clearPee()}
+      >
+        Clear All
+      </Button>
+      <main>
+        {poo && poo.map((item) => <TimeDisplay key={item} time={item} />)}
+      </main>
       <Button
         color="brown"
         radius="lg"
         size="md"
         compact
-        leftIcon={<IconPoo size={14} />}
         onClick={() => handlePoo()}
       >
-        Poo
+        <IconPoo size={14} />
+      </Button>
+      <Button
+        color="brown"
+        radius="lg"
+        size="md"
+        compact
+        onClick={() => clearPoo()}
+      >
+        Clear All
       </Button>
     </>
   );
