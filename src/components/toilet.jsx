@@ -22,6 +22,11 @@ const Toilet = () => {
     const q = query(collection(db, "Pee"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       console.log(querySnapshot);
+      let time = [];
+      querySnapshot.forEach((doc) => {
+        time.push({ ...doc.data() });
+      });
+      console.log(".....", time[0].toLocaleTimeString());
       setPee("changed");
       console.log("changed");
     });
