@@ -4,6 +4,7 @@ import { IconClock } from "@tabler/icons";
 import React, { useState, useEffect, useRef } from "react";
 import { Drawer, Button, Group } from "@mantine/core";
 import { db, app } from "../firebase";
+
 // import firebase from "firebase";
 import {
   query,
@@ -26,7 +27,19 @@ const Toilet = () => {
       querySnapshot.forEach((doc) => {
         time.push({ ...doc.data() });
       });
-      console.log(".....", time[0].toLocaleTimeString());
+
+      const peeTime = time[0].time.seconds;
+      const peeTime2 = time[1].time.seconds;
+
+      console.log(new Date(peeTime2 * 1000).toISOString());
+      console.log(new Date.UTC(peeTime * 1000).toISOString());
+      console.log(
+        ".....",
+        peeTime,
+        ".....",
+        peeTime2
+        // peeTime2.toLocaleTimeString("en-US")
+      );
       setPee("changed");
       console.log("changed");
     });
