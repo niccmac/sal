@@ -15,26 +15,13 @@ const Toilet = () => {
       time: new Date()
     });
   };
-  const clearPee = () => {
-    // db.collection("Pee")
-    //   .get()
-    //   .then((querySnapshot) => {
-    //     querySnapshot.docs.forEach((snapshot) => {
-    //       snapshot.ref.delete();
-    //     });
-    //   });
 
-    console.log("Clear");
-  };
   const handlePoo = async () => {
     await addDoc(collection(db, "Poo"), {
       time: new Date()
     });
   };
 
-  const clearPoo = () => {
-    console.log("Clear");
-  };
   useEffect(() => {
     const q = query(collection(db, "Pee"));
     let times = [];
@@ -77,7 +64,7 @@ const Toilet = () => {
       >
         {<IconDroplet size={14} />}
       </Button>
-
+      {/* 
       <Button
         color="yellow"
         radius="lg"
@@ -86,7 +73,7 @@ const Toilet = () => {
         onClick={() => clearPee()}
       >
         Clear All
-      </Button>
+      </Button> */}
       <main>
         {poo && poo.map((item) => <TimeDisplay key={item} time={item} />)}
       </main>
@@ -99,7 +86,7 @@ const Toilet = () => {
       >
         <IconPoo size={14} />
       </Button>
-      <Button
+      {/* <Button
         color="brown"
         radius="lg"
         size="md"
@@ -107,7 +94,7 @@ const Toilet = () => {
         onClick={() => clearPoo()}
       >
         Clear All
-      </Button>
+      </Button> */}
     </>
   );
 };
