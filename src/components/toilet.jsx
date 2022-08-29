@@ -5,43 +5,35 @@ import React, { useState, useEffect, useRef } from "react";
 import { Drawer, Button, Group } from "@mantine/core";
 import { db, app } from "../firebase";
 
-// import firebase from "firebase";
 import {
   query,
-  collection,
   orderBy,
   onSnapshot,
   getDocs,
-  limit
+  limit,
+  addDoc,
+  collection,
+  serverTimestamp
 } from "firebase/firestore";
 const Toilet = () => {
   const [pee, setPee] = useState();
   const [poo, setPoo] = useState();
   const brown = "#A52A2A";
 
-  const handlePee = () => {
+  const handlePee = async () => {
+    await addDoc(collection(db, "Pee"), {
+      time: new Date()
+    });
+
     const q = query(collection(db, "Pee"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      console.log(querySnapshot);
-      let time = [];
-      querySnapshot.forEach((doc) => {
-        time.push({ ...doc.data() });
+      let times = [];
+      querySnapshot.forEach((time) => {
+        times.push({ ...time.data() });
       });
+      setPee(times);
 
-      const peeTime = time[0].time.seconds;
-      const peeTime2 = time[1].time.seconds;
-
-      console.log(new Date(peeTime2 * 1000).toISOString());
-      console.log(new Date.UTC(peeTime * 1000).toISOString());
-      console.log(
-        ".....",
-        peeTime,
-        ".....",
-        peeTime2
-        // peeTime2.toLocaleTimeString("en-US")
-      );
-      setPee("changed");
-      console.log("changed");
+      console.log("changed", times);
     });
     return () => unsubscribe();
   };
