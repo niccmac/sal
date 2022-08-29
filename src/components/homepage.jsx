@@ -18,7 +18,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Sally </h1>
+      <h1>PuppyWatch</h1>
       <div>
         <p>Welcome, {user ? user.displayName : "please sign in."}</p>
       </div>

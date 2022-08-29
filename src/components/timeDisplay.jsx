@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Collapse } from "@mantine/core";
+import { ActionIcon, Collapse } from "@mantine/core";
 import { IconClock } from "@tabler/icons";
 
 const TimeDisplay = (time) => {
@@ -8,7 +8,9 @@ const TimeDisplay = (time) => {
 
   return (
     <>
-      <IconClock onClick={() => setOpened((o) => !o)} />
+      <ActionIcon>
+        <IconClock onClick={() => setOpened((o) => !o)} />
+      </ActionIcon>
 
       <Collapse in={opened}>{displayTime}</Collapse>
     </>
