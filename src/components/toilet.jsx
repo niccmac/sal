@@ -28,6 +28,7 @@ const Toilet = () => {
     return () => unsubscribe();
   };
   const handlePoo = () => {
+    console.log("in handler");
     const q = query(collection(db, "Poo"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       console.log(querySnapshot);
@@ -60,7 +61,6 @@ const Toilet = () => {
         placeholder="Pick time"
         icon={<IconClock size={16} />}
         defaultValue={new Date()}
-        onClick={() => handlePoo()}
       />
       <Button
         color="brown"
@@ -68,6 +68,7 @@ const Toilet = () => {
         size="md"
         compact
         leftIcon={<IconPoo size={14} />}
+        onClick={() => handlePoo()}
       >
         Poo
       </Button>
