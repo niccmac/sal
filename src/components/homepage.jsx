@@ -18,7 +18,6 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* <h1>Sally {process.env ? process.env.REACT_APP_API_KEY : "Fail"}</h1> */}
       <h1>Sally </h1>
       <div>
         <p>Welcome, {user ? user.displayName : "please sign in."}</p>
@@ -29,13 +28,12 @@ const HomePage = () => {
             Logout
           </button>
           <Chat />
+          <Eating />
+          <Toilet />
         </>
       ) : (
         <Signin />
       )}
-
-      <Eating />
-      <Toilet />
     </div>
   );
 };

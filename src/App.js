@@ -11,6 +11,7 @@ import HomePage from "./components/homepage";
 function App() {
   const { user } = UserAuth();
 
+  console.log(user);
   return (
     <div className="App">
       <header className="App-header">
