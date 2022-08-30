@@ -10,6 +10,20 @@ const Toilet = () => {
   const [pee, setPee] = useState([]);
   const [poo, setPoo] = useState();
 
+  function isDateToday(item) {
+    const otherDate = new Date(item);
+    const todayDate = new Date();
+
+    if (
+      otherDate.getDate() === todayDate.getDate() &&
+      otherDate.getMonth() === todayDate.getMonth() &&
+      otherDate.getYear() === todayDate.getYear()
+    ) {
+      return <TimeDisplay key={item} time={item} />;
+    } else {
+      return false;
+    }
+  }
   const handlePee = async () => {
     await addDoc(collection(db, "Pee"), {
       time: new Date()
@@ -52,9 +66,7 @@ const Toilet = () => {
 
   return (
     <>
-      <main>
-        {pee && pee.map((item) => <TimeDisplay key={item} time={item} />)}
-      </main>
+      <main>{pee && pee.map((item) => isDateToday(item))}</main>
       <Button
         color="yellow"
         radius="lg"
