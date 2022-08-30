@@ -5,7 +5,6 @@ function Eating() {
   const [meal, setMeal] = useState("Breakfast");
   const handleEating = (e) => {
     setMeal(e);
-    console.log(e);
   };
   return (
     <SegmentedControl

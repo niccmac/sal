@@ -86,9 +86,7 @@ const Toilet = () => {
       >
         Clear All
       </Button> */}
-      <main>
-        {poo && poo.map((item) => <TimeDisplay key={item} time={item} />)}
-      </main>
+      <main>{poo && poo.map((item) => isDateToday(item))}</main>
       <Button
         color="brown"
         radius="lg"

@@ -12,7 +12,7 @@ const HomePage = () => {
     try {
       await logOut();
     } catch (error) {
-      console.log(error);
+      console.log("SIGN OUT", error);
     }
   };
 

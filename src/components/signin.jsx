@@ -11,7 +11,7 @@ const Signin = () => {
     try {
       await googleSignIn();
     } catch (error) {
-      console.log(error);
+      console.log("SIGN IN", error);
     }
   };
 
