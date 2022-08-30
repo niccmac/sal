@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Drawer, Button, Group } from "@mantine/core";
+import { Drawer, Button, Group, Container } from "@mantine/core";
 import { db, app } from "../firebase";
 // import firebase from "firebase";
 import {
@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import ChatMessage from "./chatMessage";
 import SendMessage from "./sendMessage";
+import { IconMessageCircle2 } from "@tabler/icons";
 
 const Chat = () => {
   const [opened, setOpened] = useState(false);
@@ -47,19 +48,21 @@ const Chat = () => {
         overlayBlur={3}
       >
         <>
-          <main>
-            {messages &&
-              messages.map((message) => (
-                <ChatMessage key={message.id} message={message} />
-              ))}
-          </main>
-          <SendMessage />
-          <span ref={scroll}></span>
+          <Container className="chat-container">
+            <main className="chat-messages">
+              {messages &&
+                messages.map((message) => (
+                  <ChatMessage key={message.id} message={message} />
+                ))}
+            </main>
+            <SendMessage className="chat-send" />
+            <span ref={scroll}></span>
+          </Container>
         </>
       </Drawer>
 
       <Group position="center">
-        <Button onClick={() => setOpened(true)}>Open Chat</Button>
+        <IconMessageCircle2 onClick={() => setOpened(true)} />
       </Group>
     </>
   );

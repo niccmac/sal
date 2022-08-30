@@ -6,9 +6,7 @@ import { auth, db } from "../firebase";
 
 export function SendMessage() {
   const [input, setInput] = useState("");
-  // const theme = useMantineTheme();
   const handleSendMessage = async (e) => {
-    // e.preventDefault();
     const { displayName, uid } = auth.currentUser;
     await addDoc(collection(db, "Messages"), {
       name: displayName,
@@ -16,24 +14,26 @@ export function SendMessage() {
       time: serverTimestamp(),
       uid
     });
-    console.log(input);
     setInput("");
+  };
+
+  const handleInputChange = (e) => {
+    if (e.key === "Enter") {
+      console.log("enter press here! ");
+    }
+    if (e.target.value !== "" || e.target.value !== " ") {
+      setInput(e.target.value);
+    }
   };
   return (
     <TextInput
       value={input}
-      onChange={(e) => setInput(e.target.value)}
+      onChange={(e) => handleInputChange(e)}
       icon={<IconMessageCircle2 size={18} stroke={1.5} />}
       radius="xl"
       size="md"
       rightSection={
-        <ActionIcon
-          size={32}
-          radius="xl"
-          // color={theme.primaryColor}
-
-          variant="filled"
-        >
+        <ActionIcon size={32} radius="xl" variant="filled">
           <IconArrowRight
             size={18}
             stroke={1.5}
