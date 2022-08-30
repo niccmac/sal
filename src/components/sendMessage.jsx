@@ -3,10 +3,11 @@ import { IconArrowRight, IconMessageCircle2 } from "@tabler/icons";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useState } from "react";
 import { auth, db } from "../firebase";
+import { useEffect } from "react";
 
 export function SendMessage() {
   const [input, setInput] = useState("");
-  const handleSendMessage = async (e) => {
+  const handleSendMessage = async () => {
     const { displayName, uid } = auth.currentUser;
     await addDoc(collection(db, "Messages"), {
       name: displayName,
@@ -18,13 +19,23 @@ export function SendMessage() {
   };
 
   const handleInputChange = (e) => {
-    if (e.key === "Enter") {
-      console.log("enter press here! ");
-    }
     if (e.target.value !== "" || e.target.value !== " ") {
       setInput(e.target.value);
     }
   };
+  useEffect(() => {
+    const keyDownHandler = (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleSendMessage();
+      }
+    };
+    document.addEventListener("keydown", keyDownHandler);
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, []);
+
   return (
     <TextInput
       value={input}
