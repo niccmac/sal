@@ -6,8 +6,7 @@ import { UserAuth } from "../providers/GoogleAuthProvider";
 
 const ChatMessage = (props) => {
   const { user } = UserAuth();
-  console.log(user.photoURL);
-  const { text, name, id } = props.message;
+  const { text, name, id, photo } = props.message;
 
   return (
     <>
@@ -24,9 +23,7 @@ const ChatMessage = (props) => {
       ) : (
         <div className="chat-single-other" key={id}>
           <Container className="chat-name" radius={100}>
-            <List.Item
-              icon={<Avatar src={user.photoURL} alt={user.displayName} />}
-            >
+            <List.Item icon={<Avatar src={photo} alt={user.displayName} />}>
               <Text size="xs" color="red">
                 {text}
               </Text>
