@@ -21,8 +21,8 @@ const Chat = () => {
   useEffect(() => {
     const q = query(
       collection(db, "Messages"),
-      orderBy("time", "desc"),
-      limit(2)
+      orderBy("time", "asc"),
+      limit(10)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let messages = [];

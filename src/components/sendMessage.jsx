@@ -8,14 +8,16 @@ import { useEffect } from "react";
 export function SendMessage() {
   const [input, setInput] = useState("");
   const handleSendMessage = async () => {
-    const { displayName, uid } = auth.currentUser;
-    await addDoc(collection(db, "Messages"), {
-      name: displayName,
-      text: input,
-      time: serverTimestamp(),
-      uid
-    });
-    setInput("");
+    if (input !== "" || input !== " ") {
+      const { displayName, uid } = auth.currentUser;
+      await addDoc(collection(db, "Messages"), {
+        name: displayName,
+        text: input,
+        time: serverTimestamp(),
+        uid
+      });
+      setInput("");
+    }
   };
 
   const handleInputChange = (e) => {
@@ -23,11 +25,14 @@ export function SendMessage() {
       setInput(e.target.value);
     }
   };
+
   useEffect(() => {
     const keyDownHandler = (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleSendMessage();
+      if (input !== "" || input !== " ") {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          handleSendMessage();
+        }
       }
     };
     document.addEventListener("keydown", keyDownHandler);
