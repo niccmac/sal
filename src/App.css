@@ -35,3 +35,20 @@ img.mantine-1trwvlz.mantine-Avatar-image {
   border-radius: 100px;
   size: 10vw;
 }
+
+chat-messages {
+  display: flex;
+}
+
+chat-send {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.mantine-Paper-root.mantine-Drawer-drawer.mantine-bx13fu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
