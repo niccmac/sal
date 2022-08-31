@@ -4,7 +4,8 @@ import { IconDogBowl } from "@tabler/icons";
 
 const MealTime = (item) => {
   const { text, time } = item.item;
-  const displayTime = time.timestampValue.toString().substring(11, 16);
+  let localTime = new Date(time.timestampValue);
+  const displayTime = localTime.toString().substring(16, 21);
   const [opened, setOpened] = useState(false);
 
   return (
