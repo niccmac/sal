@@ -7,8 +7,9 @@ import { useEffect } from "react";
 
 export function SendMessage() {
   const [input, setInput] = useState("");
+
   const handleSendMessage = async () => {
-    if (input !== "" && input !== " ") {
+    if (input.length > 1) {
       const { displayName, uid, photoURL } = auth.currentUser;
       await addDoc(collection(db, "Messages"), {
         name: displayName,
@@ -27,11 +28,10 @@ export function SendMessage() {
 
   useEffect(() => {
     const keyDownHandler = (e) => {
-      if (input !== "" && input !== " ") {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          handleSendMessage();
-        }
+      console.log(e.key);
+      if (e.key === "Enter" && input.length > 1) {
+        e.preventDefault();
+        handleSendMessage();
       }
     };
     document.addEventListener("keydown", keyDownHandler);

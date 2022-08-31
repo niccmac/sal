@@ -36,7 +36,6 @@ function Eating() {
       otherDate.getMonth() === todayDate.getMonth() &&
       otherDate.getYear() === todayDate.getYear()
     ) {
-      console.log("true", item);
       return <MealTime item={item} key={otherDate} />;
     } else {
       return false;
@@ -51,7 +50,6 @@ function Eating() {
         const item = doc._document.data.value.mapValue.fields;
         meals.push(item);
       });
-      console.log("update meals", meals);
       setMeals(meals);
     });
     return () => unsubscribe();

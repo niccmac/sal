@@ -7,9 +7,7 @@ import { UserAuth } from "../providers/GoogleAuthProvider";
 const ChatMessage = (props) => {
   const { user } = UserAuth();
   const { text, name, id, photo } = props.message;
-  if (user.displayName !== name) {
-    console.log(props.message);
-  }
+
   return (
     <div className="chat-single" key={id} display="flex">
       {user.displayName === name ? (

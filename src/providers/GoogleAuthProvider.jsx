@@ -6,6 +6,7 @@ import {
   onAuthStateChanged
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { render } from "@testing-library/react";
 
 const AuthContext = createContext();
 
@@ -14,7 +15,14 @@ export const GoogleAuthContext = ({ children }) => {
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
+    console.log("in function");
+    signInWithRedirect(auth, provider)
+      .then(() => {
+        console.log("Completed signin");
+      })
+      .catch((e) => {
+        alert(e);
+      });
   };
 
   const logOut = () => {
