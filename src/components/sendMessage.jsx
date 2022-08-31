@@ -9,9 +9,10 @@ export function SendMessage() {
   const [input, setInput] = useState("");
   const handleSendMessage = async () => {
     if (input !== "" || input !== " ") {
-      const { displayName, uid } = auth.currentUser;
+      const { displayName, uid, photoURL } = auth.currentUser;
       await addDoc(collection(db, "Messages"), {
         name: displayName,
+        photo: photoURL,
         text: input,
         time: serverTimestamp(),
         uid
