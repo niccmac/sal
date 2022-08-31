@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { ActionIcon, Collapse } from "@mantine/core";
-import { IconClock } from "@tabler/icons";
+import { IconDogBowl } from "@tabler/icons";
 
-const TimeDisplay = (time) => {
-  const displayTime = time.time.toString().substring(11, 16);
+const MealTime = (item) => {
+  const { text, time } = item.item;
+  const displayTime = time.timestampValue;
+  console.log(time.timestampValue);
+  // const mealTime = time.time.toString().substring(11, 16);
   const [opened, setOpened] = useState(false);
 
   return (
     <>
       <ActionIcon>
-        <IconClock onClick={() => setOpened((o) => !o)} />
+        <IconDogBowl onClick={() => setOpened((o) => !o)} />
       </ActionIcon>
 
-      <Collapse in={opened}>{displayTime}</Collapse>
+      <Collapse in={opened}>{text.stringValue} :</Collapse>
     </>
   );
 };
-export default TimeDisplay;
+export default MealTime;

@@ -9,6 +9,7 @@ import {
   limit
 } from "firebase/firestore";
 import { db } from "../firebase";
+import MealTime from "./timeMeal";
 
 function Eating() {
   const [meal, setMeal] = useState("Breakfast");
@@ -27,22 +28,7 @@ function Eating() {
       otherDate.getMonth() === todayDate.getMonth() &&
       otherDate.getYear() === todayDate.getYear()
     ) {
-      return (
-        <Group position="center">
-          <HoverCard width={280} shadow="md">
-            <HoverCard.Target>
-              <IconDogBowl />
-            </HoverCard.Target>
-            <HoverCard.Dropdown>
-              <Text size="sm">
-                Hover card is revealed when user hovers over target element, it
-                will be hidden once mouse is not over both target and dropdown
-                elements
-              </Text>
-            </HoverCard.Dropdown>
-          </HoverCard>
-        </Group>
-      );
+      return <MealTime item={item} key={otherDate} />;
     } else {
       return false;
     }
