@@ -7,7 +7,6 @@ import {
   collection,
   orderBy,
   onSnapshot,
-  getDocs,
   limit
 } from "firebase/firestore";
 import ChatMessage from "./chatMessage";
