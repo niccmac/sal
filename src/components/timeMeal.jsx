@@ -4,9 +4,7 @@ import { IconDogBowl } from "@tabler/icons";
 
 const MealTime = (item) => {
   const { text, time } = item.item;
-  const displayTime = time.timestampValue;
-  console.log(time.timestampValue);
-  // const mealTime = time.time.toString().substring(11, 16);
+  const displayTime = time.timestampValue.toString().substring(11, 16);
   const [opened, setOpened] = useState(false);
 
   return (
@@ -15,7 +13,9 @@ const MealTime = (item) => {
         <IconDogBowl onClick={() => setOpened((o) => !o)} />
       </ActionIcon>
 
-      <Collapse in={opened}>{text.stringValue} :</Collapse>
+      <Collapse in={opened}>
+        {text.stringValue} : {displayTime}
+      </Collapse>
     </>
   );
 };
