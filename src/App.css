@@ -31,3 +31,7 @@
     transform: rotate(360deg);
   }
 }
+img.mantine-1trwvlz.mantine-Avatar-image {
+  border-radius: 100px;
+  size: 10vw;
+}
