@@ -15,6 +15,9 @@ const MealTime = (item) => {
   const handleTrashClick = async (e) => {
     const database = getDatabase();
 
+    db.doc(`Eating/${item.itemKey}`).update({
+      active: false
+    });
     // await database
     //   .collection("Eating")
     //   .doc(item.itemKey)
