@@ -15,15 +15,17 @@ import { db, auth } from "../firebase";
 import MealTime from "./timeMeal";
 
 function Eating() {
-  const [meal, setMeal] = useState("Breakfast");
+  const [meal, setMeal] = useState("Not Fed");
   const [meals, setMeals] = useState([]);
 
   const handleEating = async (e) => {
-    await addDoc(collection(db, "Eating"), {
-      text: e,
-      time: serverTimestamp()
-    });
-    setMeal(e);
+    if (e !== "Not fed") {
+      await addDoc(collection(db, "Eating"), {
+        text: e,
+        time: serverTimestamp()
+      });
+      setMeal(e);
+    }
   };
 
   const isDateToday = (item) => {
@@ -53,7 +55,7 @@ function Eating() {
       setMeals(meals);
     });
     return () => unsubscribe();
-  }, [meal]);
+  }, [meals]);
 
   return (
     <>
@@ -61,6 +63,7 @@ function Eating() {
         value={meal}
         onChange={(e) => handleEating(e)}
         data={[
+          { label: "Not fed", value: "Not fed" },
           { label: "Breakfast", value: "Breakfast" },
           { label: "Lunch", value: "Lunch" },
           { label: "Dinner", value: "Dinner" }
