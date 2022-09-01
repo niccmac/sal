@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ActionIcon, Collapse } from "@mantine/core";
-import { IconDogBowl } from "@tabler/icons";
+import { IconDogBowl, IconTrashX } from "@tabler/icons";
 
 const MealTime = (item) => {
   const { text, time } = item.item;
