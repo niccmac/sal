@@ -22,7 +22,8 @@ function Eating() {
     if (e !== "Not fed") {
       await addDoc(collection(db, "Eating"), {
         text: e,
-        time: serverTimestamp()
+        time: serverTimestamp(),
+        active: true
       });
       setMeal(e);
     }
@@ -36,9 +37,10 @@ function Eating() {
     if (
       otherDate.getDate() === todayDate.getDate() &&
       otherDate.getMonth() === todayDate.getMonth() &&
-      otherDate.getYear() === todayDate.getYear()
+      otherDate.getYear() === todayDate.getYear() &&
+      item.active.booleanValue === true
     ) {
-      return <MealTime item={item} key={otherDate} />;
+      return <MealTime item={item} key={item} />;
     } else {
       return false;
     }
@@ -50,12 +52,14 @@ function Eating() {
       let meals = [];
       querySnapshot.forEach((doc) => {
         const item = doc._document.data.value.mapValue.fields;
+        const itemKey = doc._document.key.path.segments[6];
+        item.itemKey = itemKey;
         meals.push(item);
       });
       setMeals(meals);
     });
     return () => unsubscribe();
-  }, [meals]);
+  }, []);
 
   return (
     <>
