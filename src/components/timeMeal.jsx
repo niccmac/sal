@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ActionIcon, Collapse } from "@mantine/core";
 import { IconDogBowl, IconTrashX } from "@tabler/icons";
-import { getDatabase, ref, set } from "firebase/database";
-import { collection } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
+import { collection, doc } from "firebase/firestore";
 import { db } from "../firebase";
 
 const MealTime = (item) => {
@@ -14,8 +14,8 @@ const MealTime = (item) => {
 
   const handleTrashClick = async (e) => {
     const database = getDatabase();
-
-    db.doc(`Eating/${item.itemKey}`).update({
+    // TODO update doc when delete button is clicked
+    await doc(collection(db, `Eating`), {
       active: false
     });
     // await database
