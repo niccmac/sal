@@ -3,10 +3,14 @@ import { ActionIcon, Collapse } from "@mantine/core";
 import { IconDogBowl, IconTrashX } from "@tabler/icons";
 
 const MealTime = (item) => {
+  const [opened, setOpened] = useState(false);
   const { text, time } = item.item;
   let localTime = new Date(time.timestampValue);
   const displayTime = localTime.toString().substring(16, 21);
-  const [opened, setOpened] = useState(false);
+
+  const handleTrashClick = (e) => {
+    console.log("Trash Clicked");
+  };
 
   return (
     <>
@@ -16,6 +20,7 @@ const MealTime = (item) => {
 
       <Collapse in={opened}>
         {text.stringValue} : {displayTime}
+        <IconTrashX onClick={() => handleTrashClick()} />
       </Collapse>
     </>
   );
